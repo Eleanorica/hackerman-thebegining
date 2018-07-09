@@ -30,27 +30,32 @@
 #else:
     #print "You cannot drive..."
 
+user_name = raw_input("What is your name?")
+#user_month = raw_input("What is your birth month (number)?")
+user_day = raw_input("What is your birth day (number)?")
+#today_month = 7
+oday_day = 9
 #if int(user_month) >= int(today_month):
     #print user_name+", your birthday is in", int(user_month) - int(today_month), "months"
 #elif int(user_month) < int(today_month):
     #print user_name+", your birthday is in", (int(today_month) + int(user_month)) - 2, "months"
 
-#if int(user_day) >= int(today_day):
-    #print "and", int(user_day) - int(today_day), "days!"
-#elif int(user_day) < int(today_day):
-    #print "and", 30 - (int(today_day) - int(today_day)), "days!"
+if int(user_day) >= int(today_day):
+    print "and", int(user_day) - int(today_day), "days!"
+elif int(user_day) < int(today_day):
+    print "and", 30 - (int(today_day) - int(today_day)), "days!"
 
 
-user_name = raw_input("What is your name?")
-user_month = raw_input("What is your birth month (number)?")
-user_day = raw_input("What is your birth day (number)?")
-today_month = 7
-today_day = 9
-if int(user_month) >= int(today_month) and int(user_day) >= int(today_day):
-    print user_name+", your birthday is in", int(user_month) - int(today_month), "months and", int(user_day) - int(today_day), "days!"
-if int(user_month) >= int(today_month) and
-    print user_name+", your birthday is in", int(user_month) - int(today_month), "months and", 30 - (int(today_day) - int(today_day)), "days!"
-if int(user_month) < int(today_month) and
-    print user_name+", your birthday is in", (int(today_month) + int(user_month)) - 2, "months and", int(user_day) - int(today_day), "days!"
-if int(user_month) < int(today_month) and
-    print user_name+", your birthday is in", (int(today_month) + int(user_month)) - 2, "months and", 30 - (int(today_day) - int(today_day)), "days!"
+#user_name = raw_input("What is your name?")
+#user_month = raw_input("What is your birth month (number)?")
+#user_day = raw_input("What is your birth day (number)?")
+#today_month = 7
+#today_day = 9
+#if int(user_month) >= int(today_month) and int(user_day) >= int(today_day):
+    #print user_name+", your birthday is in", int(user_month) - int(today_month), "months and", int(user_day) - int(today_day), "days!"
+#if int(user_month) >= int(today_month) and int(user_day) < int(today_day):
+    #print user_name+", your birthday is in", int(user_month) - int(today_month), "months and", 30 - (int(today_day) - int(today_day)), "days!"
+#if int(user_month) < int(today_month) and int(user_day) >= int(today_day):
+    #print user_name+", your birthday is in", (int(today_month) + int(user_month)) - 2, "months and", int(user_day) - int(today_day), "days!"
+#if int(user_month) < int(today_month) and int(user_day) < int(today_day):
+    #print user_name+", your birthday is in", (int(today_month) + int(user_month)) - 2, "months and", 30 - (int(today_day) - int(today_day)), "days!"
