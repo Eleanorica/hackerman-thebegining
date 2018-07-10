@@ -23,16 +23,16 @@
 # If you complete extensions, describe your extensions here!
 
 #conditional
-
-#age = raw_input("What is your age?")
-#if 95 > int(age) > 16:
-    #print "You can drive!"
-#elif int(age) == 16:
-    #print "You can drive in some places!"
-#elif int(age) > 95:
-    #print "You are too old to drive..."
-#else:
-    #print "You cannot drive..."
+#
+# age = raw_input("What is your age?")
+# if 95 > int(age) > 16:
+#     print "You can drive!"
+# elif int(age) == 16:
+#     print "You can drive in some places!"
+# elif int(age) > 95:
+#     print "You are too old to drive..."
+# else:
+#     print "You cannot drive..."
 
 #user_name = raw_input("What is your name?")
 #user_month = raw_input("What is your birth month (number)?")
@@ -82,34 +82,70 @@
 #if int(age) > 8:
     #print "You can see G-rated movies!"
 
+
 lives = 3
-print "Lives =", int(lives)
-a_one = raw_input("What is 8*4?")
-if int(a_one) == 32:
-    print "Correct!"
-else:
-    print "Wrong!"
-    print "Lives =", (int(lives) - 1)
-    lives = (int(lives) - 1)
+done = False
+while done == False:
+    print "Lives =", int(lives)
+    a1 = raw_input("What is 8*4? ")
+    if int(a1) == 32:
+        print "Correct!"
+    else:
+        print "Wrong!"
+        print "Lives =", (int(lives) - 1)
+        lives = (int(lives) - 1)
 
-a_two = raw_input("Who was the first man on the moon?")
-if a_two == "Neil Armstrong":
-    print "Correct!"
-else:
-    print "Wrong!"
-    print "Lives =", (int(lives) - 1)
-    lives = (int(lives) - 1)
+    a2 = raw_input("Who was the first man on the moon? ")
+    if a2 == "Neil Armstrong":
+       print "Correct!"
+    else:
+        print "Wrong!"
+        print "Lives =", (int(lives) - 1)
+        lives = (int(lives) - 1)
 
-a_three = raw_input("What year did World War II end?")
-if a_three == "1918"
-    print "Correct!"
-else:
-    print "Wrong!"
-    print "Lives =", (int(lives) - 1)
-    lives = (int(lives) - 1)
+    a3 = raw_input("What year did World War II end? ")
+    if a3 == "1918":
+        print "Correct!"
+    else:
+        print "Wrong!"
+        print "Lives =", (int(lives) - 1)
+        lives = (int(lives) - 1)
+        if lives == 0:
+            print "Game Over!"
+            break
+        else:
+            continue
 
-if lives = 0:
-    
+    a4 = raw_input("How many stripes are on the American flag? ")
+    if a4 == "13":
+        print "Correct!"
+    else:
+        print "Wrong!"
+        print "Lives =", (int(lives) - 1)
+        lives = (int(lives) - 1)
+        if lives == 0:
+            print "Game Over!"
+            break
+        else:
+            continue
+
+    a5 = raw_input("How many bars are on a bar staff? ")
+    if a5 == "4":
+        print "Correct!"
+    else:
+        print "Wrong!"
+        print "Lives =", (int(lives) - 1)
+        lives = (int(lives) - 1)
+        if lives == 0:
+            print "Game Over!"
+            break
+        else:
+            continue
+
+    print "Congrats! You won!"
+    break
+
+
 
 
 
