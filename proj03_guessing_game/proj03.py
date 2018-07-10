@@ -49,5 +49,5 @@ while done == False and guesses <= allowedGuesses:
             guesses = 0
             done = False
             startNewGame = True
-if guesses > 6:
+if guesses > allowedGuesses:
     print "Thanks for playing, but you reached the maximum number of guesses before you won. The correct answer was", my_num
