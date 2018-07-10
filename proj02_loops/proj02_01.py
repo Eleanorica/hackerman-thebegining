@@ -1,5 +1,5 @@
-# Name:
-# Date:
+# Name: Eleanor
+# Date: July 10
 
 # proj02: sum
 
@@ -17,3 +17,33 @@
 # Enter a number to sum, or 0 to indicate you are finished: 10
 # Enter a number to sum, or 0 to indicate you are finished: 0
 #The sum of your numbers is: 21
+
+# key word is while
+
+
+# counter = 0
+#
+# while counter <= 10:
+#     print counter
+#     counter = counter + 1
+
+
+#counter = 0
+# s = ""
+
+#while counter <= 10:
+    #print counter
+    #counter = counter + 1
+    #s = s + "a"
+    #print s
+    #if counter == 5:
+        #break
+
+a1 = raw_input("Enter a number to sum, or 0 to indicate you are done.")
+counter = int(a1)
+while int(a1) != 0:
+    a1 = raw_input("Enter a number to sum, or 0 to indicate you are done.")
+    counter = counter + int(a1)
+print counter
+
+
