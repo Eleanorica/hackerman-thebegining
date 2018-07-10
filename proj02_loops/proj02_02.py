@@ -61,12 +61,20 @@ previous two numbers in the sequence. The sequence looks like this:
 #     prev = curr - prev
 
 
-prev = 0
-curr = 1
-nxt = 1
-thismany = raw_input("How many Fibonacci numbers should I generate?")
-for num in range (0,int(thismany)):
-    print curr
-    nxt = curr + prev
-    prev = curr
-    curr = nxt
+# prev = 0
+# curr = 1
+# nxt = 1
+# thismany = raw_input("How many powers of 2 should I generate?")
+# for num in range (0,int(thismany)):
+#     print curr
+#     nxt = curr*2
+#     prev = curr
+#     curr = nxt
+
+
+# counter = 1
+# thisone = int(raw_input("Input a number and I will find all of the divisors!"))
+# while counter <= thisone:
+#     if thisone % counter == 0:
+#         print counter
+#     counter = counter + 1
