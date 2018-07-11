@@ -23,3 +23,57 @@
 
 import random
 number = str(random.randint(1000,9999)) #random 4 digit number
+
+numberlist = []
+for letter in number:
+    numberlist.append(letter)
+
+print "Welcome ot the cows and bulls game!"
+user_guess = raw_input("Guess a four digit number or type exit to leave.")
+if user_guess == "exit":
+    exit()
+
+usernumberlist = []
+for letter in user_guess:
+    usernumberlist.append(letter)
+
+
+b = [1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89]
+c = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]
+
+# high = int(raw_input("enter a number"))
+# aa = []
+# counter = 0
+# for item in a:
+#     if item < high:
+#         print a[counter]
+#         aa.append(a[counter])
+#         counter = counter + 1
+# print aa
+
+# bc = []
+# counter = 0
+# valueb = list(set(b))
+# valuec = list(set(c))
+# for item in valueb:
+#     if item in valuec:
+#         bc.append(valueb[counter])
+#     counter = counter + 1
+# print bc
+
+
+# import random
+# aaa = []
+# bbb = []
+# ccc = []
+#
+
+#
+# counter = 0
+# valueaaa = list(set(aaa))
+# valuebbb = list(set(bbb))
+# for item in valueaaa:
+#     if item in valuebbb:
+#         ccc.append(valueaaa[counter])
+#     counter = counter + 1
+# print "Common numbers:",ccc
