@@ -47,6 +47,8 @@ wordlist = load_words()
 
 # your code begins here!
 
+
+
 word = choose_word(wordlist)
 
 list = []
@@ -59,30 +61,139 @@ blank = []
 guesses = 8
 counter1 = 0
 counter2 = 0
+counter3 = 0
 
 alpha = string.lowercase
 print word
+
+alphalist = []
+
+for letter in alpha:
+    alphalist.append(letter)
 
 print "Welcome to Hangman! My word is", length, "letters long!"
 while guesses > 0:
     print "Letters available:", alpha
     print "You have", guesses, "guesses left."
+    if (guesses == 0):
+        print "_________"
+        print "|	 |"
+        print "|"
+        print "|"
+        print "|"
+        print "|"
+        print "|________"
+    elif (guesses == 1):
+        print "_________"
+        print "|	 |"
+        print "|	 O"
+        print "|"
+        print "|"
+        print "|"
+        print "|________"
+    elif (guesses == 2):
+        print "_________"
+        print "|	 |"
+        print "|	 O"
+        print "|	 |"
+        print "|	 |"
+        print "|"
+        print "|________"
+    elif (guesses == 3):
+        print "_________"
+        print "|	 |"
+        print "|	 O"
+        print "|	\|"
+        print "|	 |"
+        print "|"
+        print "|________"
+    elif (guesses == 4):
+        print "_________"
+        print "|	 |"
+        print "|	 O"
+        print "|	\|/"
+        print "|	 |"
+        print "|"
+        print "|________"
+    elif (guesses == 5):
+        print "_________"
+        print "|	 |"
+        print "|	 O"
+        print "|	\|/"
+        print "|	 |"
+        print "|  / "
+        print "|________"
+    elif (guesses == 6):
+        print "_________"
+        print "|	 |"
+        print "|	 O"
+        print "|	\|/"
+        print "|	 |"
+        print "|  / \ "
+        print "|________"
+    elif (guesses == 7):
+        print "_________"
+        print "|	 |"
+        print "|	 O"
+        print "|	\|/"
+        print "|	 |"
+        print "|  _/ \ "
+        print "|________"
+    elif (guesses == 8):
+        print "_________"
+        print "|	 |"
+        print "|	 O"
+        print "|	\|/"
+        print "|	 |"
+        print "|  _/ \_ "
+        print "|________"
     while counter1 < length:
         blank.append("_")
         counter1 = counter1 + 1
     print blank
     user_input = raw_input("Guess a letter:")
-    alpha = alpha.replace(user_input, "")
     counter2 = 0
-    for item in word:
+    inword = False
+    notinword = False
+    already = False
+    number = False
 
-        if item == user_input:
-            blank[counter2] = user_input
+    if user_input != str:
+        number = True
 
-            print "You got it right!"
-        counter2 = counter2 + 1
-
-
+    if number == True:
+        print "Please use a letter!"
+        print "---------------------------------------------"
+    if number == False:
+        for item in alpha:
+            if item == user_input:
+                already = False
+                counter3 = counter3 + 1
+                break
+            else:
+                already = True
+        if already == True:
+            print "You already guessed that letter!"
+            print "---------------------------------------------"
+        if already == False:
+            alpha = alpha.replace(user_input, "")
+            for item in word:
+                if item == user_input:
+                    blank[counter2] = user_input
+                    inword = True
+                counter2 = counter2 + 1
+            if inword == True:
+                print "You got it right!"
+                print "---------------------------------------------"
+            else:
+                print "You got it wrong!"
+                guesses = guesses - 1
+                print "---------------------------------------------"
+            if item in blank != "_":
+                print "Congrats! You won! The word was", word, "!"
+                break
+    if guesses <= 0:
+        print "Game over! The word was", word, "!"
 
 
 
