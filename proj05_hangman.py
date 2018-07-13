@@ -73,7 +73,6 @@ def hangman():
         for letter in alpha:
             alphalist.append(letter)
 
-        print word
         print "Welcome to Hangman! My word is", length, "letters long!"
         while guesses > 0:
             print "Letters available:", alpha
@@ -140,7 +139,7 @@ def hangman():
 
             print blank
 
-            user_input = raw_input("Guess a letter:")
+            user_input = raw_input("Guess a letter: ")
             counter2 = 0
             inword = False
             already = False
@@ -182,17 +181,15 @@ def hangman():
                         print "You got it wrong!"
                         guesses = guesses - 1
                         print "---------------------------------------------"
-                    while counter5 <= length:
-                        wing = False
-                        if item in blank[counter5] == "_":
+                    wing = True
+                    counter5 = 0
+                    while counter5 < length:
+                        if blank[counter5] == "_":
                             wing = False
-                            counter5 = counter5 + 1
-                        else:
-                            wing = True
-                        if wing == True:
-                            break
-                    for item in blank:
-                        if
+                        counter5 = counter5 + 1
+                    if wing == True:
+                        print "Congrats! You won! The word was", word, "!"
+                        break
 
             if guesses <= 0:
                 print "_________"
@@ -204,14 +201,14 @@ def hangman():
                 print "Game over! The word was", word, "!"
 
 while True:
-    again = raw_input("Would you like to play Hangman? (y/n)")
+    again = raw_input("Would you like to play Hangman? (y/n) ")
     if again == "y":
         hangman()
     elif again == "n":
         print "Bye!"
         exit()
     else:
-        again2 = raw_input("I don't understand. Would you like to play Hangman? (y/n)")
+        again2 = raw_input("I don't understand. Would you like to play Hangman? (y/n) ")
         if again2 == "y":
             hangman()
         else:
