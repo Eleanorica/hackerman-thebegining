@@ -77,7 +77,14 @@ def get_word_score(word, n):
     returns: int >= 0
     """
     # TO DO...
-    
+    sum = 0
+    new_points = 0
+    for item in word:
+        sum = sum + SCRABBLE_LETTER_VALUES.get(item, n)
+    new_points = (sum)*int(len(word))
+    if int(len(word)) == n:
+        new_points = new_points + 50
+    return new_points
 #
 # Make sure you understand how this function works and what it does!
 #
@@ -97,7 +104,7 @@ def display_hand(hand):
         for j in range(hand[letter]):
              print letter,              # print all on the same line
     print                               # print an empty line
-
+    return hand
 #
 # Make sure you understand how this function works and what it does!
 #
@@ -146,7 +153,48 @@ def update_hand(hand, word):
     returns: dictionary (string -> int)
     """
     # TO DO ...
+    new_hand = {}
+    word = {}
+    # for item in hand:
+    #     if word[item] < hand[item]:
+    #         new_hand[item] = hand[item] - word[item]
+    #     elif item not in word:
+    #         new_hand[item] = hand[item]
+    #     else:
+    #         continue
+    #     print new_hand
+    # return new_hand
 
+    # for item in hand:
+    #     if word[item] < hand[item]:
+    #         new_hand[item] = hand[item] - word[item]
+    #     elif item not in word:
+    #         new_hand[item] = hand[item]
+    #     else:
+    #         continue
+    #     print new_hand
+    # return new_hand
+
+    for item in hand:
+        if item in word:
+            if word.get(item, 0) < hand.get(item, 0):
+                new_hand[item] = hand[item] - word[item]
+            else:
+                new_hand[item] = hand[item] - word[item]
+        else:
+            new_hand[item] = hand[item]
+    return new_hand
+
+
+    # for item in hand:
+    #     if item in word:
+    #         if word[item] < hand[item]:
+    #             new_hand[item] = hand[item] - word[item]
+    #         else:
+    #             new_hand[item] = hand[item] - word[item]
+    #     else:
+    #         new_hand[item] = hand[item]
+    # return new_hand
 #
 # Problem #3: Test word validity
 #
