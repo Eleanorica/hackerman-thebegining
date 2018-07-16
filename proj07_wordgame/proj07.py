@@ -152,49 +152,13 @@ def update_hand(hand, word):
     hand: dictionary (string -> int)    
     returns: dictionary (string -> int)
     """
-    # TO DO ...
-    new_hand = {}
-    word = {}
-    # for item in hand:
-    #     if word[item] < hand[item]:
-    #         new_hand[item] = hand[item] - word[item]
-    #     elif item not in word:
-    #         new_hand[item] = hand[item]
-    #     else:
-    #         continue
-    #     print new_hand
-    # return new_hand
 
-    # for item in hand:
-    #     if word[item] < hand[item]:
-    #         new_hand[item] = hand[item] - word[item]
-    #     elif item not in word:
-    #         new_hand[item] = hand[item]
-    #     else:
-    #         continue
-    #     print new_hand
-    # return new_hand
-
-    for item in hand:
-        if item in word:
-            if word.get(item, 0) < hand.get(item, 0):
-                new_hand[item] = hand[item] - word[item]
-            else:
-                new_hand[item] = hand[item] - word[item]
-        else:
-            new_hand[item] = hand[item]
+    new_hand = hand.copy()
+    for letter in word:
+        value = new_hand.get(letter, 0) -1
+        new_hand[letter] = value
     return new_hand
 
-
-    # for item in hand:
-    #     if item in word:
-    #         if word[item] < hand[item]:
-    #             new_hand[item] = hand[item] - word[item]
-    #         else:
-    #             new_hand[item] = hand[item] - word[item]
-    #     else:
-    #         new_hand[item] = hand[item]
-    # return new_hand
 #
 # Problem #3: Test word validity
 #
@@ -209,6 +173,30 @@ def is_valid_word(word, hand, word_list):
     word_list: list of lowercase strings
     """
     # TO DO...
+
+    # new_hand2 = hand.copy()
+    # for letter in new_word:
+    #     value = new_hand2.get(letter, 0) - 1
+    #     new_hand2[letter] = value
+
+    new_hand2 = hand.copy()
+    total = False
+    valid_word = False
+    valid_letters = False
+    # for item in word_list:
+    #     if item == word:
+    #         valid_word = True
+    #     if valid_word == True:
+    #         break
+    for letter in word:
+        if letter in hand:
+            valid_letters = True
+        if valid_letters == False:
+            print "You do not have those letters!"
+            break
+    if valid_word == True and valid_letters == True:
+        return True
+
 
 def calculate_handlen(hand):
     handlen = 0
