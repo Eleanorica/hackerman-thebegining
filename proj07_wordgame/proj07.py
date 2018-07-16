@@ -179,23 +179,59 @@ def is_valid_word(word, hand, word_list):
     #     value = new_hand2.get(letter, 0) - 1
     #     new_hand2[letter] = value
 
-    new_hand2 = hand.copy()
-    total = False
+    worddict = dict.fromkeys(word, 0)
+    # all letters in worddict are empty, fix that
+    hand2 = hand.copy()
     valid_word = False
     valid_letters = False
+    #print "1"
+    for item in word_list:
+        if item == word:
+            valid_word = True
+        if valid_word == True:
+            break
+    for letter in word:
+        #print "2"
+        if letter in hand2:
+            #print "3"
+            if hand2[letter] >= worddict[letter]:
+                #print "4"
+                value = hand2.get(letter, 0) - 1
+                hand2[letter] = value
+                valid_letters = True
+                #print hand2
+            elif hand2[letter] < worddict[letter]:
+                valid_letters = False
+        else:
+            valid_letters = False
+            break
+        if valid_letters == False:
+            #print "5"
+            print "You do not have those letters!"
+            break
+    if valid_word == True and valid_letters == True:
+        #print "6"
+        return True
+
+    # valid_word = False
+    # valid_letters = False
     # for item in word_list:
     #     if item == word:
     #         valid_word = True
     #     if valid_word == True:
     #         break
-    for letter in word:
-        if letter in hand:
-            valid_letters = True
-        if valid_letters == False:
-            print "You do not have those letters!"
-            break
-    if valid_word == True and valid_letters == True:
-        return True
+    # for letter in word:
+    #     if letter in hand:
+    #         if hand.get(letter, 0) == word.get(letter, 0):
+    #             valid_letters = True
+    #         elif hand.get(letter, 0) > word.get(letter, 0):
+    #             valid_letters = True
+    #     if valid_letters == False:
+    #         print "You do not have those letters!"
+    #         break
+    # if valid_word == True and valid_letters == True:
+    #     return True
+
 
 
 def calculate_handlen(hand):
