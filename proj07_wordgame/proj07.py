@@ -120,7 +120,7 @@ def deal_hand(n):
     n: int >= 0
     returns: dictionary (string -> int)
     """
-    hand={}
+    hand = {}
     num_vowels = n / 3
     
     for i in range(num_vowels):
@@ -174,65 +174,18 @@ def is_valid_word(word, hand, word_list):
     """
     # TO DO...
 
-    # new_hand2 = hand.copy()
-    # for letter in new_word:
-    #     value = new_hand2.get(letter, 0) - 1
-    #     new_hand2[letter] = value
-
-    worddict = dict.fromkeys(word, 0)
-    # all letters in worddict are empty, fix that
-    hand2 = hand.copy()
-    valid_word = False
-    valid_letters = False
-    #print "1"
-    for item in word_list:
-        if item == word:
-            valid_word = True
-        if valid_word == True:
-            break
+    hand_copy = hand.copy()
+    valid_word = True
+    if word not in word_list:
+        valid_word = False
     for letter in word:
-        #print "2"
-        if letter in hand2:
-            #print "3"
-            if hand2[letter] >= worddict[letter]:
-                #print "4"
-                value = hand2.get(letter, 0) - 1
-                hand2[letter] = value
-                valid_letters = True
-                #print hand2
-            elif hand2[letter] < worddict[letter]:
-                valid_letters = False
+        if letter not in hand_copy:
+            valid_word = False
+        elif hand_copy[letter] == 0:
+            valid_word = False
         else:
-            valid_letters = False
-            break
-        if valid_letters == False:
-            #print "5"
-            print "You do not have those letters!"
-            break
-    if valid_word == True and valid_letters == True:
-        #print "6"
-        return True
-
-    # valid_word = False
-    # valid_letters = False
-    # for item in word_list:
-    #     if item == word:
-    #         valid_word = True
-    #     if valid_word == True:
-    #         break
-    # for letter in word:
-    #     if letter in hand:
-    #         if hand.get(letter, 0) == word.get(letter, 0):
-    #             valid_letters = True
-    #         elif hand.get(letter, 0) > word.get(letter, 0):
-    #             valid_letters = True
-    #     if valid_letters == False:
-    #         print "You do not have those letters!"
-    #         break
-    # if valid_word == True and valid_letters == True:
-    #     return True
-
-
+            hand_copy[letter] = hand_copy[letter] - 1
+    return valid_word
 
 def calculate_handlen(hand):
     handlen = 0
@@ -272,6 +225,36 @@ def play_hand(hand, word_list):
       
     """
     # TO DO ...
+    total_points = 0
+    playgame = False
+    contin = True
+    wanttoplay = raw_input("Would you like to play? (y/n) ")
+    if wanttoplay == "y":
+        playgame = True
+    word_list = load_words()
+    hand = deal_hand(HAND_SIZE)
+    while playgame == True:
+        print "Current Hand: "
+        display_hand(hand)
+        length = calculate_handlen(hand)
+        if length == 0:
+            print "Congratulations! You used all your letters! You have", total_points, "points!"
+            break
+        user_word = raw_input("Enter a word, or enter a '.' to end your turn.")
+        if user_word == ".":
+            contin = False
+            print "Good job! You got", total_points, "points!"
+            break
+        if contin == True:
+            get_frequency_dict(user_word)
+            valid_word = is_valid_word(user_word, hand, word_list)
+            if valid_word == False:
+                print "That is not a valid word! Try again."
+            if valid_word == True:
+                new_points = get_word_score(user_word, HAND_SIZE)
+                hand = update_hand(hand, user_word)
+                total_points = total_points + new_points
+                print user_word, "earned", new_points,"points. Total: ", total_points
 
 #
 # Problem #5: Playing a game
@@ -294,6 +277,49 @@ def play_game(word_list):
     """
     # TO DO...
 
+total_points = 0
+playgame = False
+contin = True
+endmess = False
+wanttoplay = raw_input("Would you like to play? (y/n) ")
+if wanttoplay == "y":
+    playgame = True
+word_list = load_words()
+hand = deal_hand(HAND_SIZE)
+while playgame == True:
+    print "Current Hand: "
+    display_hand(hand)
+    length = calculate_handlen(hand)
+    if length == 0:
+        print "Congratulations! You used all your letters! You have", total_points, "points!"
+        endmess = True
+        break
+    user_word = raw_input("Enter a word, or enter a '.' to end your turn.")
+    if user_word == ".":
+        contin = False
+        endmess = True
+        print "Good job! You got", total_points, "points!"
+        break
+    if contin == True:
+        get_frequency_dict(user_word)
+        valid_word = is_valid_word(user_word, hand, word_list)
+        if valid_word == False:
+            print "That is not a valid word! Try again."
+        if valid_word == True:
+            new_points = get_word_score(user_word, HAND_SIZE)
+            hand = update_hand(hand, user_word)
+            total_points = total_points + new_points
+            print user_word, "earned", new_points,"points. Total: ", total_points
+    if endmess == True:
+        
+
+user_choice = raw_input("Would you like a new game (n), retry using the same hand (r), or exit (e)?")
+if user_choice == "n":
+
+elif user_choice == "r":
+
+elif user_choice == "e":
+    exit()
 #
 # Build data structures used for entire session and play game
 #
