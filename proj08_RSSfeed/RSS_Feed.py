@@ -1,5 +1,3 @@
-# Name:
-# Date
 
 import feedparser
 import string
@@ -7,15 +5,16 @@ import time
 from project_util import translate_html
 from news_gui import Popup
 
-#-----------------------------------------------------------------------
+
+# -----------------------------------------------------------------------
 #
 # proj08: RSS Feed Filter
 
-#======================
+# ======================
 # Code for retrieving and parsing
 # Google and Yahoo News feeds
 # Do not change this code
-#======================
+# ======================
 
 def process(url):
     """
@@ -38,10 +37,11 @@ def process(url):
         ret.append(newsStory)
     return ret
 
-#======================
+
+# ======================
 # Part 1
 # Data structure design
-#======================
+# ======================
 
 # Problem 1
 
@@ -57,27 +57,34 @@ class NewsStory(object):
         * summary
         * link
     """
-    def __init__(self, guid):
-        """
-        Returns a NewsStory object with the following attributes
-        :param guid: a string that serves as a unique name for this entry 
-        :param title: string
-        :param subject: string
-        :param summary: string
-        :param link: string     
-        """
+
+    def __init__(self, guid, title, subject, summary, link):
+
         self.guid = guid
+        self.title = title
+        self.subject = subject
+        self.summary = summary
+        self.link = link
 
     def get_guid(self):
         return self.guid
 
-# Your job is to write functions for the other 4 attributes.
+    def get_title(self):
+        return self.title
 
+    def get_subject(self):
+        return self.subject
 
-#======================
+    def get_summary(self):
+        return self.summary
+
+    def get_link(self):
+        return self.link
+
+# ======================
 # Part 2
 # Triggers
-#======================
+# ======================
 
 class Trigger(object):
     def evaluate(self, story):
@@ -90,13 +97,23 @@ class Trigger(object):
         #  is serving as an umbrella for all of the other types of triggers. Start
         # working on problems 2-5 below - do not add code here!
 
+
 # Whole Word Triggers
 # Problems 2-5
 
-# TODO: WordTrigger
-
 # Create a class, WordTrigger, that is a subclass of trigger.
+class WordTrigger(Trigger):
 
+    def __init__(self, word):
+
+        self.word = word
+
+    def is_word_in(self, string):
+
+        if word.lower() in string.lower():
+            return True
+        else:
+            return False
 # You will need a constructor (an "init" method). This constructor should take a word
 # and save the word as part of itself (just like NewsStory takes a guid and saves it as
 #  part of itself).
@@ -106,13 +123,6 @@ class Trigger(object):
 # should not be case sensitive.
 
 
-
-
-
-
-
-
-
 # Each of the three triggers below can be completed in three lines.
 # First, define the new class, which is a subclass of WordTrigger.
 # You do NOT need a constructor, because this is inherited from WordTrigger.
@@ -120,9 +130,26 @@ class Trigger(object):
 # Third, uses "is_word_in" to check to see
 #  if the word is in the appropriate part of the story (for example, for title trigger,
 # to see if the word is in the title of the story).
-# TODO: TitleTrigger
-# TODO: SubjectTrigger
-# TODO: SummaryTrigger
+class TitleTrigger(WordTrigger):
+
+    def evaluate(self, story):
+
+        raise NotImplementedError
+
+
+
+class SubjectTrigger(WordTrigger):
+
+    def evaluate(self, story):
+
+        raise NotImplementedError
+
+
+class SummaryTrigger(WordTrigger):
+
+    def evaluate(self, story):
+
+        raise NotImplementedError
 
 
 # Composite Triggers
@@ -145,10 +172,10 @@ class Trigger(object):
 # TODO: PhraseTrigger
 
 
-#======================
+# ======================
 # Part 3
 # Filtering
-#======================
+# ======================
 
 def filter_stories(stories, triggerlist):
     """
@@ -157,14 +184,15 @@ def filter_stories(stories, triggerlist):
     a trigger in triggerlist fires.
     """
     # TODO: Problem 10
-    # This is a placeholder (we're just returning all the stories, with no filtering) 
+    # This is a placeholder (we're just returning all the stories, with no filtering)
     # Feel free to change this line!
     return stories
 
-#======================
+
+# ======================
 # Extensions: Part 4
 # User-Specified Triggers
-#======================
+# ======================
 
 def readTriggerConfig(filename):
     """
@@ -176,7 +204,7 @@ def readTriggerConfig(filename):
     # to read in the file and eliminate
     # blank lines and comments
     triggerfile = open(filename, "r")
-    all = [ line.rstrip() for line in triggerfile.readlines() ]
+    all = [line.rstrip() for line in triggerfile.readlines()]
     lines = []
     for line in all:
         if len(line) == 0 or line[0] == '#':
@@ -187,8 +215,10 @@ def readTriggerConfig(filename):
     # 'lines' has a list of lines you need to parse
     # Build a set of triggers from it and
     # return the appropriate ones
-    
+
+
 import thread
+
 
 def main_thread(p):
     # A sample trigger list - you'll replace
@@ -198,15 +228,16 @@ def main_thread(p):
     t3 = PhraseTrigger("Net Neutrality")
     t4 = OrTrigger(t2, t3)
     triggerlist = [t1, t4]
-    
+
     # TODO: Problem 11
-    # After implementing readTriggerConfig, uncomment this line 
-    #triggerlist = readTriggerConfig("triggers.txt")
+    # After implementing readTriggerConfig, uncomment this line
+    # triggerlist = readTriggerConfig("triggers.txt")
 
     guidShown = []
-    
+
     while True:
-        print "Polling..."
+        print ()
+        "Polling..."
 
         # Get stories from Google's Top Stories RSS news feed
         stories = process("http://news.google.com/?output=rss")
@@ -215,21 +246,23 @@ def main_thread(p):
 
         # Only select stories we're interested in
         stories = filter_stories(stories, triggerlist)
-    
+
         # Don't print a story if we have already printed it before
         newstories = []
         for story in stories:
             if story.get_guid() not in guidShown:
                 newstories.append(story)
-        
+
         for story in newstories:
             guidShown.append(story.get_guid())
             p.newWindow(story)
 
-        print "Sleeping..."
+        print ()
+        "Sleeping..."
         time.sleep(SLEEPTIME)
 
-SLEEPTIME = 60 #seconds -- how often we poll
+
+SLEEPTIME = 60  # seconds -- how often we poll
 if __name__ == '__main__':
     p = Popup()
     thread.start_new_thread(main_thread, (p,))
