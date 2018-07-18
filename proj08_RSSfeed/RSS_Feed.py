@@ -174,65 +174,50 @@ class SummaryTrigger(WordTrigger):
 # They will also need an evaluate method.
 # TODO: NotTrigger
 
-# class NotTrigger(Trigger):
-#
-#     def __init__(self, word):
-#
-#         self.word = word
-#
-#     def evaluate(self, story):
-#
-#         self.word = story.get_word()
-#
-#         return not self.word.evaluate(story)
-
-# class NotTrigger(Trigger):
-#
-#     def __init__(self, word):
-#
-#         self.word = word
-#
-#     def evaluate(self, story):
-#
-#         self.word = story.get_word()
-#
-#         if self.is_word_in(word) == True:
-#
-#             return False
-#
-#         else:
-#
-#             return True
-
 class NotTrigger(Trigger):
 
-    def __init__(self, word):
+    def __init__(self, trigger):
 
-        self.word = word
-
-    def is_word_in(self, string):
-
-        string = re.sub(r'[^\w\s]', ' ', string)
-
-        string = string.split(" ")
-
-        for item in string:
-            if self.word.lower() == item.lower():
-                return True
-            else:
-                pass
-        return False
+        self.trigger = trigger
 
     def evaluate(self, story):
 
-        if self.is_word_in(string) == True:
+        if self.trigger.evaluate(string) == True:
             return False
         else:
             return True
 
 # TODO: AndTrigger
+
+class AndTrigger(Trigger):
+
+    def __init__(self, trigger1, trigger2):
+
+        self.trigger1 = trigger1
+        self.trigger2 = trigger2
+
+    def evaluate(self, story):
+
+        if self.trigger1.evaluate(string) == True and self.trigger2.evaluate(string) == True:
+            return True
+        else:
+            return False
+
 # TODO: OrTrigger
 
+class OrTrigger(Trigger):
+
+    def __init__(self, trigger1, trigger2):
+
+        self.trigger1 = trigger1
+        self.trigger2 = trigger2
+
+    def evaluate(self, story):
+
+        if self.trigger1.evaluate(string) == True or self.trigger2.evaluate(string) == True:
+            return True
+        else:
+            return False
 
 # Phrase Trigger
 # Question 9
@@ -241,6 +226,47 @@ class NotTrigger(Trigger):
 # method.
 # TODO: PhraseTrigger
 
+# class PhraseTrigger(Trigger):
+#
+#     def __init__(self, phrase):
+#
+#         self.phrase = phrase
+#
+#     def evaluate(self, story):
+#
+#         if self.phrase.evaluate(story) == True:
+#
+#             return True
+#
+#         else:
+#
+#             return False
+
+class PhraseTrigger(Trigger):
+
+    def __init__(self, phrase):
+
+        self.phrase = phrase
+
+    def if_word_in(self, story):
+
+        story = re.sub(r'[^\w\s]', ' ', story)
+
+        story = story.split(" ")
+
+        for item in string:
+            if self.word == item:
+                return True
+            else:
+                pass
+        return False
+
+
+
+        # if self.trigger1.evaluate(string) == True and self.trigger2.evaluate(string) == True:
+        #     return True
+        # else:
+        #     return False
 
 # ======================
 # Part 3
