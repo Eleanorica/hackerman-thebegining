@@ -102,6 +102,7 @@ class Trigger(object):
 # Problems 2-5
 
 # Create a class, WordTrigger, that is a subclass of trigger.
+import re
 class WordTrigger(Trigger):
 
     def __init__(self, word):
@@ -110,10 +111,16 @@ class WordTrigger(Trigger):
 
     def is_word_in(self, string):
 
-        if word.lower() in string.lower():
-            return True
-        else:
-            return False
+        string = re.sub(r'[^\w\s]', ' ', string)
+
+        string = string.split(" ")
+
+        for item in string:
+            if self.word.lower() == item.lower():
+                return True
+            else:
+                pass
+        return False
 # You will need a constructor (an "init" method). This constructor should take a word
 # and save the word as part of itself (just like NewsStory takes a guid and saves it as
 #  part of itself).
@@ -130,26 +137,32 @@ class WordTrigger(Trigger):
 # Third, uses "is_word_in" to check to see
 #  if the word is in the appropriate part of the story (for example, for title trigger,
 # to see if the word is in the title of the story).
+
 class TitleTrigger(WordTrigger):
 
     def evaluate(self, story):
 
-        raise NotImplementedError
+        title = story.get_title()
 
+        return self.is_word_in(title)
 
 
 class SubjectTrigger(WordTrigger):
 
     def evaluate(self, story):
 
-        raise NotImplementedError
+        subject = story.get_subject()
+
+        return self.is_word_in(subject)
 
 
 class SummaryTrigger(WordTrigger):
 
     def evaluate(self, story):
 
-        raise NotImplementedError
+        summary = story.get_summary()
+
+        return self.is_word_in(summary)
 
 
 # Composite Triggers
@@ -160,6 +173,63 @@ class SummaryTrigger(WordTrigger):
 #  class WordTigger.
 # They will also need an evaluate method.
 # TODO: NotTrigger
+
+# class NotTrigger(Trigger):
+#
+#     def __init__(self, word):
+#
+#         self.word = word
+#
+#     def evaluate(self, story):
+#
+#         self.word = story.get_word()
+#
+#         return not self.word.evaluate(story)
+
+# class NotTrigger(Trigger):
+#
+#     def __init__(self, word):
+#
+#         self.word = word
+#
+#     def evaluate(self, story):
+#
+#         self.word = story.get_word()
+#
+#         if self.is_word_in(word) == True:
+#
+#             return False
+#
+#         else:
+#
+#             return True
+
+class NotTrigger(Trigger):
+
+    def __init__(self, word):
+
+        self.word = word
+
+    def is_word_in(self, string):
+
+        string = re.sub(r'[^\w\s]', ' ', string)
+
+        string = string.split(" ")
+
+        for item in string:
+            if self.word.lower() == item.lower():
+                return True
+            else:
+                pass
+        return False
+
+    def evaluate(self, story):
+
+        if self.is_word_in(string) == True:
+            return False
+        else:
+            return True
+
 # TODO: AndTrigger
 # TODO: OrTrigger
 
