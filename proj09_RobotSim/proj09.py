@@ -6,7 +6,7 @@ import math
 import random
 
 import proj09_visualize
-import pylab
+# import pylab
 
 # === Provided classes
 
@@ -57,6 +57,24 @@ class RectangularRoom(object):
     particular time, each of these tiles is either clean or dirty.
     """
     def __init__(self, width, height):
+
+        self.width = width
+        self.height = height
+
+        self.cleaned = []
+
+        # tilenum = int(width)*int(height)
+        #
+        # self.dirtytiles = {}
+        #
+        # self.cleantiles = {}
+        #
+        # counter = 1
+        # counter2 = 1
+        # for counter < width:
+        #     for counter2 < height:
+        #         self.dirtytiles[width] = height
+
         """
         Initializes a rectangular room with the specified width and height.
 
@@ -68,6 +86,14 @@ class RectangularRoom(object):
         raise NotImplementedError
     
     def cleanTileAtPosition(self, pos):
+
+        x = math.floor(pos.getX())
+
+        y = math.floor(pos.getY())
+
+        if (x, y) not in self.cleaned:
+            self.cleaned.append((x, y))
+
         """
         Mark the tile under the position POS as cleaned.
 
@@ -75,9 +101,10 @@ class RectangularRoom(object):
 
         pos: a Position
         """
-        raise NotImplementedError
+        # raise NotImplementedError
 
     def isTileCleaned(self, m, n):
+
         """
         Return True if the tile (m, n) has been cleaned.
 
@@ -87,7 +114,8 @@ class RectangularRoom(object):
         n: an integer
         returns: True if (m, n) is cleaned, False otherwise
         """
-        raise NotImplementedError
+        return (m,n) in self.cleaned
+        # raise NotImplementedError
     
     def getNumTiles(self):
         """
@@ -95,7 +123,8 @@ class RectangularRoom(object):
 
         returns: an integer
         """
-        raise NotImplementedError
+        return int(self.width)*int(self.height)
+        # raise NotImplementedError
 
     def getNumCleanedTiles(self):
         """
@@ -103,7 +132,8 @@ class RectangularRoom(object):
 
         returns: an integer
         """
-        raise NotImplementedError
+        return int(len(self.cleaned))
+        # raise NotImplementedError
 
     def getRandomPosition(self):
         """
@@ -111,7 +141,11 @@ class RectangularRoom(object):
 
         returns: a Position object.
         """
-        raise NotImplementedError
+        a = random.randint(0, self.width)
+        b = random.randint(0, self.height)
+        loc = Position(a, b)
+        return loc
+        # raise NotImplementedError
 
     def isPositionInRoom(self, pos):
         """
@@ -120,7 +154,8 @@ class RectangularRoom(object):
         pos: a Position object.
         returns: True if pos is in the room, False otherwise.
         """
-        raise NotImplementedError
+        return 0 <= pos.getX() < self.width and 0 <= pos.getY() < self.height
+        # raise NotImplementedError
 
 
 class Robot(object):
@@ -142,7 +177,11 @@ class Robot(object):
         room:  a RectangularRoom object.
         speed: a float (speed > 0)
         """
-        raise NotImplementedError
+        self.room = room
+        if speed > 0:
+            self.speed = speed
+        self.direct = int(360*random.random())
+        # raise NotImplementedError
 
     def getRobotPosition(self):
         """
@@ -150,7 +189,8 @@ class Robot(object):
 
         returns: a Position object giving the robot's position.
         """
-        raise NotImplementedError
+        return self.loc
+        # raise NotImplementedError
     
     def getRobotDirection(self):
         """
@@ -159,7 +199,8 @@ class Robot(object):
         returns: an integer d giving the direction of the robot as an angle in
         degrees, 0 <= d < 360.
         """
-        raise NotImplementedError
+        return self.direct
+        # raise NotImplementedError
 
     def setRobotPosition(self, position):
         """
@@ -167,7 +208,8 @@ class Robot(object):
 
         position: a Position object.
         """
-        raise NotImplementedError
+        self.loc = position
+        # raise NotImplementedError
 
     def setRobotDirection(self, direction):
         """
@@ -175,7 +217,8 @@ class Robot(object):
 
         direction: integer representing an angle in degrees
         """
-        raise NotImplementedError
+        self.direct = direction
+        # raise NotImplementedError
 
     def updatePositionAndClean(self):
         """
