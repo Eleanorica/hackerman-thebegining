@@ -248,25 +248,11 @@ class PhraseTrigger(Trigger):
 
         self.phrase = phrase
 
-    def if_word_in(self, story):
+    def evaluate(self, story):
 
-        story = re.sub(r'[^\w\s]', ' ', story)
+        phrase = str(self.phrase)
 
-        story = story.split(" ")
-
-        for item in string:
-            if self.word == item:
-                return True
-            else:
-                pass
-        return False
-
-
-
-        # if self.trigger1.evaluate(string) == True and self.trigger2.evaluate(string) == True:
-        #     return True
-        # else:
-        #     return False
+        return self.phrase in story.get_title() or self.phrase in story.get_subject() or self.phrase in story.get_summary()
 
 # ======================
 # Part 3
@@ -332,8 +318,8 @@ def main_thread(p):
     guidShown = []
 
     while True:
-        print ()
-        "Polling..."
+        print "Polling..."
+
 
         # Get stories from Google's Top Stories RSS news feed
         stories = process("http://news.google.com/?output=rss")
@@ -353,8 +339,7 @@ def main_thread(p):
             guidShown.append(story.get_guid())
             p.newWindow(story)
 
-        print ()
-        "Sleeping..."
+        print "Sleeping..."
         time.sleep(SLEEPTIME)
 
 
