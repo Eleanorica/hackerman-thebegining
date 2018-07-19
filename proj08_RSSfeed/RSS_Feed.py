@@ -266,9 +266,19 @@ def filter_stories(stories, triggerlist):
     a trigger in triggerlist fires.
     """
     # TODO: Problem 10
+    filteredstories = []
+    for story in stories:
+        for trigger in triggerlist:
+            if trigger.evaluate(story):
+                filteredstories.append(story)
+
+    for story in stories:
+        print story.get_title(), story.get_subject(), story.get_summary()
+
+    return filteredstories
     # This is a placeholder (we're just returning all the stories, with no filtering)
     # Feel free to change this line!
-    return stories
+    # return stories
 
 
 # ======================
@@ -328,14 +338,16 @@ def main_thread(p):
 
         # Only select stories we're interested in
         stories = filter_stories(stories, triggerlist)
+        #print stories
 
         # Don't print a story if we have already printed it before
         newstories = []
         for story in stories:
             if story.get_guid() not in guidShown:
                 newstories.append(story)
-
+        #print newstories
         for story in newstories:
+            #print story
             guidShown.append(story.get_guid())
             p.newWindow(story)
 
