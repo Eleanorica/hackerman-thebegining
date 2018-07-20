@@ -13,7 +13,7 @@ import proj09_visualize
 
 class Position(object):
     """
-    A Position represents a location in a two-dimensional room.
+    A Position represents a posation in a two-dimensional room.
     """
     def __init__(self, x, y):
         """
@@ -21,10 +21,13 @@ class Position(object):
         """
         self.x = x
         self.y = y
+
     def getX(self):
         return self.x
+
     def getY(self):
         return self.y
+
     def getNewPosition(self, angle, speed):
         """
         Computes and returns the new Position after a single clock-tick has
@@ -38,16 +41,24 @@ class Position(object):
 
         Returns: a Position object representing the new position.
         """
-        old_x, old_y = self.getX(), self.getY()
+        print "1", self.getX()
+        print "2", self.getY()
+        old_x = self.getX()
+        old_y = self.getY()
         # Compute the change in position
-        delta_y = speed * math.cos(math.radians(angle))
-        delta_x = speed * math.sin(math.radians(angle))
+        change_y = speed * math.cos(math.radians(angle))
+        change_x = speed * math.sin(math.radians(angle))
+        print "3", change_x
+        print "4", change_y
         # Add that to the existing position
-        new_x = old_x + delta_x
-        new_y = old_y + delta_y
+        new_x = old_x + change_x
+        new_y = old_y + change_y
+        print "5", new_x
+        print "6", new_y
         return Position(new_x, new_y)
 
 # === Problems 1
+
 
 class RectangularRoom(object):
     """
@@ -61,21 +72,7 @@ class RectangularRoom(object):
 
         self.width = width
         self.height = height
-
         self.cleaned = []
-
-        # tilenum = int(width)*int(height)
-        #
-        # self.dirtytiles = {}
-        #
-        # self.cleantiles = {}
-        #
-        # counter = 1
-        # counter2 = 1
-        # for counter < width:
-        #     for counter2 < height:
-        #         self.dirtytiles[width] = height
-
         """
         Initializes a rectangular room with the specified width and height.
 
@@ -101,7 +98,6 @@ class RectangularRoom(object):
 
         pos: a Position
         """
-        # raise NotImplementedError
 
     def isTileCleaned(self, m, n):
 
@@ -115,7 +111,6 @@ class RectangularRoom(object):
         returns: True if (m, n) is cleaned, False otherwise
         """
         return (m,n) in self.cleaned
-        # raise NotImplementedError
     
     def getNumTiles(self):
         """
@@ -124,7 +119,6 @@ class RectangularRoom(object):
         returns: an integer
         """
         return int(self.width)*int(self.height)
-        # raise NotImplementedError
 
     def getNumCleanedTiles(self):
         """
@@ -133,7 +127,6 @@ class RectangularRoom(object):
         returns: an integer
         """
         return int(len(self.cleaned))
-        # raise NotImplementedError
 
     def getRandomPosition(self):
         """
@@ -143,9 +136,8 @@ class RectangularRoom(object):
         """
         a = random.randint(0, self.width)
         b = random.randint(0, self.height)
-        loc = Position(a, b)
-        return loc
-        # raise NotImplementedError
+        pos = Position(a, b)
+        return pos
 
     def isPositionInRoom(self, pos):
         """
@@ -154,8 +146,7 @@ class RectangularRoom(object):
         pos: a Position object.
         returns: True if pos is in the room, False otherwise.
         """
-        return 0 <= pos.getX() < self.width and 0 <= pos.getY() < self.height
-        # raise NotImplementedError
+        return 0 <= pos.getX() and pos.getX() < self.width and 0 <= pos.getY() and pos.getY() < self.height
 
 
 class Robot(object):
@@ -181,7 +172,7 @@ class Robot(object):
         if speed > 0:
             self.speed = speed
         self.direct = int(360*random.random())
-        self.loc = Position(0, 0)
+        self.pos = Position(1, 1)
 
     def getRobotPosition(self):
         """
@@ -189,7 +180,7 @@ class Robot(object):
 
         returns: a Position object giving the robot's position.
         """
-        return self.loc
+        return self.pos
     
     def getRobotDirection(self):
         """
@@ -206,7 +197,7 @@ class Robot(object):
 
         position: a Position object.
         """
-        self.loc = position
+        self.pos = position
 
     def setRobotDirection(self, direction):
         """
@@ -242,12 +233,16 @@ class StandardRobot(Robot):
         Move the robot to a new position and mark the tile it is on as having
         been cleaned.
         """
-        if self.room.isPositionInRoom(self.loc.getNewPosition(self.direct, self.speed)):
-            self.loc = self.loc.getNewPosition(self.direct, self.speed)
-            self.room.cleanTileAtPosition(self.loc)
-        else:
-            self.direct = int(360*random.random())
-
+        print self.room.isPositionInRoom(self.pos.getNewPosition(self.direct, self.speed))
+        p1 = self.pos
+        p2 = self.pos.getNewPosition(self.direct, self.speed)
+        while p1 != p2:
+            if self.room.isPositionInRoom(p2):
+                self.pos = p2
+                self.room.cleanTileAtPosition(self.pos)
+            else:
+                self.direct = int(360*random.random())
+                p2 = self.pos.getNewPosition(self.direct, self.speed)
 
 # === Problem 3
 
@@ -289,9 +284,11 @@ def runSimulation(num_robots, speed, width, height, min_coverage, num_trials,
         anim.done()
     return float(totaltime/num_trials)
 
+
 runSimulation(2, 9.0, 6, 6, 0.7, 2, "StandardRobot")
 
 # === Problem 4
+
 
 def showPlot1():
     """
@@ -308,10 +305,10 @@ def showPlot2():
 # === Problem 5
 
 #class RandomWalkRobot(Robot):
-    """
-    A RandomWalkRobot is a robot with the "random walk" movement strategy: it
-    chooses a new direction at random after each time-step.
-    """
+    # """
+    # A RandomWalkRobot is a robot with the "random walk" movement strategy: it
+    # chooses a new direction at random after each time-step.
+    # """
     #raise NotImplementedError
 
 
