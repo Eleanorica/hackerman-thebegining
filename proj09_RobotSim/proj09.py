@@ -10,6 +10,7 @@ import proj09_visualize
 
 # === Provided classes
 
+
 class Position(object):
     """
     A Position represents a location in a two-dimensional room.
@@ -83,7 +84,6 @@ class RectangularRoom(object):
         width: an integer > 0
         height: an integer > 0
         """
-        raise NotImplementedError
     
     def cleanTileAtPosition(self, pos):
 
@@ -181,7 +181,7 @@ class Robot(object):
         if speed > 0:
             self.speed = speed
         self.direct = int(360*random.random())
-        # raise NotImplementedError
+        self.loc = Position(0, 0)
 
     def getRobotPosition(self):
         """
@@ -190,7 +190,6 @@ class Robot(object):
         returns: a Position object giving the robot's position.
         """
         return self.loc
-        # raise NotImplementedError
     
     def getRobotDirection(self):
         """
@@ -200,7 +199,6 @@ class Robot(object):
         degrees, 0 <= d < 360.
         """
         return self.direct
-        # raise NotImplementedError
 
     def setRobotPosition(self, position):
         """
@@ -209,7 +207,6 @@ class Robot(object):
         position: a Position object.
         """
         self.loc = position
-        # raise NotImplementedError
 
     def setRobotDirection(self, direction):
         """
@@ -218,7 +215,6 @@ class Robot(object):
         direction: integer representing an angle in degrees
         """
         self.direct = direction
-        # raise NotImplementedError
 
     def updatePositionAndClean(self):
         """
@@ -227,6 +223,7 @@ class Robot(object):
         Move the robot to a new position and mark the tile it is on as having
         been cleaned.
         """
+
         raise NotImplementedError
 
 
@@ -251,7 +248,6 @@ class StandardRobot(Robot):
         else:
             self.direct = int(360*random.random())
 
-        # raise NotImplementedError
 
 # === Problem 3
 
@@ -273,20 +269,34 @@ def runSimulation(num_robots, speed, width, height, min_coverage, num_trials,
     robot_type: class of robot to be instantiated (e.g. Robot or
                 RandomWalkRobot)
     """
-    raise NotImplementedError
+    totaltime = 0
+    num = num_trials
+    while num > 0:
+        anim = proj09_visualize.RobotVisualization(num_robots, width, height)
+        room = RectangularRoom(width, height)
+        i = num_robots
+        robots = []
+        while i > 0:
+            if robot_type == "StandardRobot":
+                robots.append(StandardRobot(room, speed))
+                i -= 1
+        while min_coverage*room.getNumTiles() > room.getNumCleanedTiles():
+            for robot in robots:
+                robot.updatePositionAndClean()
+            totaltime += 1
+            anim.update(room, robots)
+        num -= 1
+        anim.done()
+    return float(totaltime/num_trials)
 
+runSimulation(2, 9.0, 6, 6, 0.7, 2, "StandardRobot")
 
 # === Problem 4
-#
-# 1) How long does it take to clean 80% of a 20�20 room with each of 1-10 robots?
-#
-# 2) How long does it take two robots to clean 80% of rooms with dimensions 
-#	 20�20, 25�16, 40�10, 50�8, 80�5, and 100�4?
 
 def showPlot1():
     """
     Produces a plot showing dependence of cleaning time on number of robots.
-    """ 
+    """
     raise NotImplementedError
 
 def showPlot2():
@@ -297,12 +307,12 @@ def showPlot2():
 
 # === Problem 5
 
-class RandomWalkRobot(Robot):
+#class RandomWalkRobot(Robot):
     """
     A RandomWalkRobot is a robot with the "random walk" movement strategy: it
     chooses a new direction at random after each time-step.
     """
-    raise NotImplementedError
+    #raise NotImplementedError
 
 
 # === Problem 6
