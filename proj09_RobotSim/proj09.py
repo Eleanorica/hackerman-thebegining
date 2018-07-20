@@ -41,20 +41,14 @@ class Position(object):
 
         Returns: a Position object representing the new position.
         """
-        print "1", self.getX()
-        print "2", self.getY()
         old_x = self.getX()
         old_y = self.getY()
         # Compute the change in position
         change_y = speed * math.cos(math.radians(angle))
         change_x = speed * math.sin(math.radians(angle))
-        print "3", change_x
-        print "4", change_y
         # Add that to the existing position
         new_x = old_x + change_x
         new_y = old_y + change_y
-        print "5", new_x
-        print "6", new_y
         return Position(new_x, new_y)
 
 # === Problems 1
@@ -233,16 +227,13 @@ class StandardRobot(Robot):
         Move the robot to a new position and mark the tile it is on as having
         been cleaned.
         """
-        print self.room.isPositionInRoom(self.pos.getNewPosition(self.direct, self.speed))
         p1 = self.pos
         p2 = self.pos.getNewPosition(self.direct, self.speed)
-        while p1 != p2:
-            if self.room.isPositionInRoom(p2):
-                self.pos = p2
-                self.room.cleanTileAtPosition(self.pos)
-            else:
-                self.direct = int(360*random.random())
-                p2 = self.pos.getNewPosition(self.direct, self.speed)
+        if self.room.isPositionInRoom(p2):
+            self.pos = p2
+            self.room.cleanTileAtPosition(self.pos)
+        else:
+            self.direct = int(360*random.random())
 
 # === Problem 3
 
@@ -267,7 +258,7 @@ def runSimulation(num_robots, speed, width, height, min_coverage, num_trials,
     totaltime = 0
     num = num_trials
     while num > 0:
-        anim = proj09_visualize.RobotVisualization(num_robots, width, height)
+        # anim = proj09_visualize.RobotVisualization(num_robots, width, height)
         room = RectangularRoom(width, height)
         i = num_robots
         robots = []
@@ -279,13 +270,13 @@ def runSimulation(num_robots, speed, width, height, min_coverage, num_trials,
             for robot in robots:
                 robot.updatePositionAndClean()
             totaltime += 1
-            anim.update(room, robots)
+            # anim.update(room, robots)
         num -= 1
-        anim.done()
+        # anim.done()
     return float(totaltime/num_trials)
 
 
-runSimulation(2, 9.0, 6, 6, 0.7, 2, "StandardRobot")
+runSimulation(2, 1, 5, 5, 1, 2, "StandardRobot")
 
 # === Problem 4
 
@@ -294,13 +285,18 @@ def showPlot1():
     """
     Produces a plot showing dependence of cleaning time on number of robots.
     """
-    raise NotImplementedError
+    times1 = []
+    for num_robots in range(1, 11):
+        times1.append(runSimulation(num_robots, 1, 20, 20, .8, 1, "StandardRobot"))
+    print times1
 
 def showPlot2():
     """
     Produces a plot showing dependence of cleaning time on room shape.
     """
-    raise NotImplementedError
+times2 = []
+times2.append(runSimulation(2, 1, 100, 4, .8, 1, "StandardRobot"))
+print times2
 
 # === Problem 5
 
