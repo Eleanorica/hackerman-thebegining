@@ -1,3 +1,28 @@
+# recursion
+def print_x_times(x, string):
+    # base case
+    if x == 1:
+        print x, " ", string
+    # all other cases
+    else:
+        print x, " ", string
+        # recursive call to self
+        print_x_times(x-1, string)
+# print_x_times(8, "cat")
+
+# def palindrome(string):
+#     # base case
+#     if len(string) <= 1:
+#         print "Yes"
+#     # other cases
+#     elif string[0] != string[-1]:
+#         print "No"
+#         return False
+#     else:
+#         # recursive call to self
+#         palindrome(string[1:-1])
+# palindrome("hello")
+
 # proj11: Recursion Programming Lab
 
 # Name:
@@ -10,16 +35,32 @@
 # Task: compute the sum of a list of integers
 # Pre: lst is an list of 'size' integers, size is nonnegative
 # Post: the sum of lst[0]...lst[size-1] is returned
-# Challenge: This function could be done by dividing the list in half and performing recursive calls on each half (as opposed to just shrinking the size by one each time).
+# Challenge: This function could be done by dividing the list in half and performing recursive calls on each half
+# (as opposed to just shrinking the size by one each time).
 
-
+def sumList(lst):
+    counter = 0
+    while counter <= 10000:
+        if len(lst) <= 0:
+            return 0
+        elif len(lst) == 1:
+            return lst[0]
+        else:
+            print lst
+            lst[-1] = lst[0] + lst[-1]
+            lst.pop(0)
+            sumList(lst)
+            counter += 1
 
 # member(target, set);
 # Task: determine if target is in the set
 # Pre: set is an list of 'size' integers, size is nonnegative
 # Post: true is returned if target is in the set, else false; the set is unchanged
 
-
+def member(target, set):
+    for item in set:
+        if item == target:
+            return True
 
 # addStar(str);
 # Given a string, compute recursively a new string where all the adjacent characters are now separated by a "*".
@@ -30,7 +71,21 @@
 # addStar("abc") --> "a*b*c"
 # addStar("ab") --> "a*b"
 
-
+def addStar(str):
+    if len(str) == 0 or len(str) == 1:
+        return str
+    lst = []
+    counter = 0
+    for letter in str:
+        lst.append(letter)
+    while counter <= (len(lst)-2):
+        print lst
+        print counter
+        lst.insert((counter + 1), "*")
+        counter += 2
+        print lst
+    str1 = ''.join(lst)
+    return str1
 
 # harmonicSum(n);
 # Task: compute the sum of the first n harmonic terms
@@ -38,6 +93,12 @@
 # Post: the sum of the first n harmonic terms is returned.
 # The harmonic series is 1 + (1/2) + (1/3) + (1/4) + ...
 
+def harmonicSum(n):
+    sum = 0
+    while n != 0:
+        sum = float(sum) + float((1.0/n))
+        n -= 1
+    print sum
 
 
 # isPalindrome(str);
@@ -48,6 +109,25 @@
 # You do not need to worry about trimming blanks from the ends of the string.
 # Note: the empty string is a palindrome
 
+# def isPalindrome(str):
+
+str = "my name"
+lst = []
+for letter in str:
+    lst.append(letter)
+for item in lst:
+    if item == " ":
+        lst.index[" "] = ""
+    print lst
+
+print str
+
+    # if len(str) <= 1:
+    #     return True
+    # elif str[0] != str[-1]:
+    #     return False
+    # else:
+    #     isPalindrome(str[1:-1])
 
 
 # replace(target, replacement, numbers, size);
