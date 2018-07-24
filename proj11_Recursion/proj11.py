@@ -1,13 +1,17 @@
-# recursion
-def print_x_times(x, string):
-    # base case
-    if x == 1:
-        print x, " ", string
-    # all other cases
-    else:
-        print x, " ", string
-        # recursive call to self
-        print_x_times(x-1, string)
+# proj11: Recursion Programming Lab
+
+# Name:
+# Date:
+
+# def print_x_times(x, string):
+#     # base case
+#     if x == 1:
+#         print x, " ", string
+#     # all other cases
+#     else:
+#         print x, " ", string
+#         # recursive call to self
+#         print_x_times(x-1, string)
 # print_x_times(8, "cat")
 
 # def palindrome(string):
@@ -22,11 +26,6 @@ def print_x_times(x, string):
 #         # recursive call to self
 #         palindrome(string[1:-1])
 # palindrome("hello")
-
-# proj11: Recursion Programming Lab
-
-# Name:
-# Date:
 
 # Tests are created for you in proj11_test.py. Uncomment tests as you need them.
 # Otherwise, you could call a function that you haven't defined yet, and you would get an error.
@@ -109,25 +108,24 @@ def harmonicSum(n):
 # You do not need to worry about trimming blanks from the ends of the string.
 # Note: the empty string is a palindrome
 
-# def isPalindrome(str):
-
-str = "my name"
-lst = []
-for letter in str:
-    lst.append(letter)
-for item in lst:
-    if item == " ":
-        lst.index[" "] = ""
-    print lst
-
-print str
-
-    # if len(str) <= 1:
-    #     return True
-    # elif str[0] != str[-1]:
-    #     return False
-    # else:
-    #     isPalindrome(str[1:-1])
+def isPalindrome(str):
+    counter = 0
+    str = str.lower()
+    lst = []
+    for letter in str:
+        lst.append(letter)
+    for item in lst:
+        if item == " ":
+            lst[counter] = ""
+        counter += 1
+    str = ''.join(lst)
+    print str
+    if len(str) <= 1:
+        return True
+    elif str[0] != str[-1]:
+        return False
+    else:
+        isPalindrome(str[1:-1])
 
 
 # replace(target, replacement, numbers, size);
@@ -136,6 +134,15 @@ print str
 # Post: all occurrences of 'target' in 'numbers' have been replaced  with 'replacement';
 # the number of replacements performed is returned to the caller.
 
+def replace(target, replacement, numbers, size):
+    counter = 0
+    times = 0
+    for item in numbers:
+        if item == target:
+            numbers[counter] = replacement
+            times += 1
+        counter += 1
+    return times
 
 
 # g_c_d(x, y);
@@ -150,7 +157,21 @@ print str
 # Pre: the parameters x & y are nonnegative
 # Post: the GCD of x & y is returned
 
-
+def g_c_d(x, y):
+    play = False
+    r = 1
+    if y == 0:
+        return x
+    counter = 1
+    while play == False:
+        r = x % y
+        if r == 0:
+            return y
+        else:
+            x = y
+            y = r
+            r2 = r
+            counter += 1
 
 # void reverseLst(lst, first, last);
 # Task: reverse the contents of lst[first]...lst[last]
