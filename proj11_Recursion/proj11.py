@@ -178,6 +178,17 @@ def g_c_d(x, y):
 # Pre: 'lst' is a list of at least 'last'+1 integers, first & last are nonnegative
 # Post: the elements lst[first]...lst[last]have been reversed.
 
+def reverseLst(lst, first, last):
+    lst.reverse()
+    print lst
+    return lst
+
+# def reverseLst(lst, first, last):
+#     if len(lst) <= 0:
+#         return lst
+#     else:
+#         lst[0], lst[-1] = lst[-1], lst[0]
+#         reverseLst(lst[1:-1], first, last)
 
 
 # convert2Binary(num);
