@@ -258,7 +258,7 @@ def runSimulation(num_robots, speed, width, height, min_coverage, num_trials,
     totaltime = 0
     num = num_trials
     while num > 0:
-        # anim = proj09_visualize.RobotVisualization(num_robots, width, height)
+        anim = proj09_visualize.RobotVisualization(num_robots, width, height)
         room = RectangularRoom(width, height)
         i = num_robots
         robots = []
@@ -270,13 +270,12 @@ def runSimulation(num_robots, speed, width, height, min_coverage, num_trials,
             for robot in robots:
                 robot.updatePositionAndClean()
             totaltime += 1
-            # anim.update(room, robots)
+            anim.update(room, robots)
         num -= 1
-        # anim.done()
+        anim.done()
     return float(totaltime/num_trials)
 
-
-runSimulation(2, 1, 5, 5, 1, 2, "StandardRobot")
+runSimulation(10, 1, 10, 10, 1, 1, "StandardRobot")
 
 # === Problem 4
 
@@ -294,19 +293,32 @@ def showPlot2():
     """
     Produces a plot showing dependence of cleaning time on room shape.
     """
-times2 = []
-times2.append(runSimulation(2, 1, 100, 4, .8, 1, "StandardRobot"))
-print times2
+    times2 = []
+    times2.append(runSimulation(2, 1, 100, 4, .8, 1, "StandardRobot"))
+    print times2
 
 # === Problem 5
 
-#class RandomWalkRobot(Robot):
-    # """
-    # A RandomWalkRobot is a robot with the "random walk" movement strategy: it
-    # chooses a new direction at random after each time-step.
-    # """
-    #raise NotImplementedError
 
+# class RandomWalkRobot(Robot):
+#     """
+#     A RandomWalkRobot is a robot with the "random walk" movement strategy: it
+#     chooses a new direction at random after each time-step.
+#     """
+#     def updatePositionAndClean(self):
+#         """
+#         Simulate the passage of a single time-step.
+#         Move the robot to a new position and mark the tile it is on as having
+#         been cleaned.
+#         """
+#         self.direct = int(360 * random.random())
+#         while not self.room.isPositionInRoom(self.pos.getNewPosition(self.direct, self.speed)):
+#             self.direct = int(360 * random.random())
+#         self.pos = self.pos.getNewPosition(self.direct, self.speed)
+#         self.room.cleanTileAtPosition(self.pos)
+#
+#
+# runSimulation(2, 1, 10, 10, 1, 2, "RandomWalkRobot")
 
 # === Problem 6
 
